@@ -2,7 +2,7 @@ import pytest
 from tests.template import debug_test_case, debug_test_case_class
 
 try:
-    from sensor.load_data import load_sensor_data 
+    from sensor.load_data import load_sensor_data
     recs = load_sensor_data()
 except ImportError:
     recs = 0
@@ -27,7 +27,7 @@ def test_house_info_create_class_module2(parse):
 
     my_file = parse(test_file)
     assert my_file.success, my_file.message
-    
+
     # my_class = house_info.class_(test_class)
     my_class = my_file.query("class {}(): ??".format(test_class))
     assert (
@@ -38,8 +38,7 @@ def test_house_info_create_class_module2(parse):
     assert (
         my_method.exists()
     ), "Are you defining a constructor called `{}`?".format(test_method)
-    
-    
+
     my_class_arguments = (
         my_class.def_args_(test_method).match(
             {
@@ -60,10 +59,10 @@ def test_house_info_create_class_module2(parse):
         my_class_arguments
     ), """Are you defining a constructor `{0}` for the `{1}` class?
         Are you declaring the correct name and number of parameters?""".format(test_method, test_class)
-    
-    # debug_test_case(my_method) 
-    
-    # Check for assignment 
+
+    # debug_test_case(my_method)
+
+    # Check for assignment
     test_code = (
         my_method.assign_().match(
             {
@@ -81,21 +80,21 @@ def test_house_info_create_class_module2(parse):
     assert (
         test_code
     ), "Are you creating a class attribute `self.data` and setting it equal to `data`?"
-    
-    
+
+
 @pytest.mark.test_house_info_get_data_by_area_module2
 def test_house_info_get_data_by_area_module2(parse):
-    
+
     # def get_data_by_area(self, field, rec_area=0):
         # field_data = []
-    
+
     test_file = "house_info"
     test_class = "HouseInfo"
     test_method = "get_data_by_area"
 
     my_file = parse(test_file)
     assert my_file.success, my_file.message
-    
+
     # my_class = house_info.class_(test_class)
     my_class = my_file.query("class {}(): ??".format(test_class))
     assert (
@@ -106,8 +105,8 @@ def test_house_info_get_data_by_area_module2(parse):
     assert (
         my_method.exists()
     ), "Are you defining a method called `{}`?".format(test_method)
-    
-    # debug_test_case(my_method) 
+
+    # debug_test_case(my_method)
 
     my_class_arguments = (
         my_class.def_args_(test_method).match(
@@ -137,7 +136,7 @@ def test_house_info_get_data_by_area_module2(parse):
     ), """Are you defining a method `{0}` for the `{1}` class?
         Are you declaring the correct name and number of parameters?""".format(test_method, test_class)
 
-    
+
     test_code = (
         my_method.assign_().match(
             {
@@ -156,11 +155,11 @@ def test_house_info_get_data_by_area_module2(parse):
 
 @pytest.mark.test_house_info_get_data_by_area_loop_module2
 def test_house_info_get_data_by_area_loop_module2(parse):
-    
+
     #     for record in self.data:
             # if rec_area == 0:
             #     field_data.append(record[field])
-            # elif rec_area == int(record['area']): 
+            # elif rec_area == int(record['area']):
             #     field_data.append(record[field])
     #     return field_data
 
@@ -170,7 +169,7 @@ def test_house_info_get_data_by_area_loop_module2(parse):
 
     my_file = parse(test_file)
     assert my_file.success, my_file.message
-    
+
     # my_class = house_info.class_(test_class)
     my_class = my_file.query("class {}(): ??".format(test_class))
     assert (
@@ -181,8 +180,8 @@ def test_house_info_get_data_by_area_loop_module2(parse):
     assert (
         my_method.exists()
     ), "Are you defining a method called `{}`?".format(test_method)
-    
-    # debug_test_case(my_method) 
+
+    # debug_test_case(my_method)
 
     test_code = (
         my_method.for_().match(
@@ -200,7 +199,7 @@ def test_house_info_get_data_by_area_loop_module2(parse):
     )
     assert (
         test_code
-    ), """Do you have a `for` loop, looping through `self.data`? 
+    ), """Do you have a `for` loop, looping through `self.data`?
         Is the current loop value called `record`?"""
 
 
@@ -227,7 +226,7 @@ def test_house_info_get_data_by_area_loop_module2(parse):
     ), """The length of your filter data when calling `get_data_by_area` is incorrect.
         Your call should have the first argument as `id`, and the second argument as `rec_area=2
         Check the logic inside your loop"""
-    
+
     home_temp = home_info.get_data_by_area("id", rec_area=-999)
     assert (
         len(home_temp) == 0
@@ -249,7 +248,7 @@ def test_house_info_get_data_by_date_module2(parse):
 
     my_file = parse(test_file)
     assert my_file.success, my_file.message
-    
+
     # my_class = house_info.class_(test_class)
     my_class = my_file.query("class {}(): ??".format(test_class))
     assert (
@@ -260,8 +259,8 @@ def test_house_info_get_data_by_date_module2(parse):
     assert (
         my_method.exists()
     ), "Are you defining a method called `{}`?".format(test_method)
-    
-    # debug_test_case(my_method) 
+
+    # debug_test_case(my_method)
 
     house_info_import = my_file.from_imports(
         "datetime", "date")
@@ -296,11 +295,11 @@ def test_house_info_get_data_by_date_module2(parse):
     )
     assert (
         my_class_arguments
-    ), """Are you defining a method `get_data_by_date` 
+    ), """Are you defining a method `get_data_by_date`
         with the correct name and number of parameters?
         Are you setting the third parameter's default value to `date.today()`?"""
-    
-    # debug_test_case(my_method) 
+
+    # debug_test_case(my_method)
 
     test_code = (
         my_method.assign_().match(
@@ -316,12 +315,12 @@ def test_house_info_get_data_by_date_module2(parse):
     assert (
         test_code
     ), "Are you creating a variable called `field_data` set equal to an empty list?"
-    
-    
+
+
 @pytest.mark.test_house_info_get_data_by_date_loop_module2
 def test_house_info_get_data_by_date_loop_module2(parse):
         # for record in self.data:
-        #     if rec_date.strftime("%m/%d/%y") == record['date']: 
+        #     if rec_date.strftime("%m/%d/%y") == record['date']:
         #         field_data.append(record[field])
 
         # return field_data
@@ -331,7 +330,7 @@ def test_house_info_get_data_by_date_loop_module2(parse):
 
     my_file = parse(test_file)
     assert my_file.success, my_file.message
-    
+
     # my_class = house_info.class_(test_class)
     my_class = my_file.query("class {}(): ??".format(test_class))
     assert (
@@ -342,9 +341,9 @@ def test_house_info_get_data_by_date_loop_module2(parse):
     assert (
         my_method.exists()
     ), "Are you defining a method called `{}`?".format(test_method)
-    
-    # debug_test_case(my_method) 
-    
+
+    # debug_test_case(my_method)
+
     # assert False
     first_for = (
         my_method.for_().match(
@@ -362,7 +361,7 @@ def test_house_info_get_data_by_date_loop_module2(parse):
     )
     assert (
         first_for
-    ), """Do you have a `for` loop, looping through `self.data`? 
+    ), """Do you have a `for` loop, looping through `self.data`?
         Is the current loop value called `record`?"""
 
     filter_recs = (
@@ -403,7 +402,7 @@ def test_house_info_get_data_by_date_loop_module2(parse):
     )
     assert (
         filter_recs
-    ), """Are you filtering the data using an `if` statement? 
+    ), """Are you filtering the data using an `if` statement?
         Are you converting the date format of `rec_date` to "%m/%d/%y" form?
         Are you casting the `rec_date` as string with `strptime()` when comparing with `rec['date']` field?
         Are you appending the filter records to `field_data`?"""
@@ -424,19 +423,19 @@ def test_house_info_get_data_by_date_loop_module2(parse):
     assert (
         len(home_temp) == 8
     ), """The length of your filter data when calling `get_data_by_date` is incorrect.
-        Your call should have the first argument as `id`, 
+        Your call should have the first argument as `id`,
             and the second argument as `datetime` object with the format: "%m/%d/%Y"
         Check the logic inside your loop"""
-    
+
     rec_date = datetime.strptime("5/9/2020", "%m/%d/%Y")
     home_temp = home_info.get_data_by_date("id", rec_date)
     assert (
         len(home_temp) == 20
     ), """The length of your filter data when calling `get_data_by_date` is incorrect.
-        Your call should have the first argument as `id`, 
+        Your call should have the first argument as `id`,
             and the second argument as `datetime` object with the format: "%m/%d/%Y"
         Check the logic inside your loop"""
-    
+
 
 @pytest.mark.test_sensor_app_house_info_by_area_module2
 def test_sensor_app_house_info_by_area_module2(parse):
@@ -448,16 +447,16 @@ def test_sensor_app_house_info_by_area_module2(parse):
     # print("\nHouse sensor records for area {} = {}".format(test_area, len(recs)))
 
     test_file = "sensor_app"
-    
+
     my_file = parse(test_file)
     assert my_file.success, my_file.message
-    
+
     my_file_import = my_file.from_imports(
         "house_info", "HouseInfo")
     assert my_file_import, "Are you importing `HouseInfo` from `house_info` in `{}` file".format(test_file)
 
-    # debug_test_case(my_file)    
-    
+    # debug_test_case(my_file)
+
     test_code = (
         my_file.assign_().match(
             {
@@ -475,10 +474,10 @@ def test_sensor_app_house_info_by_area_module2(parse):
     )
     assert (
         test_code
-    ), """Are you creating an instance of the class `HouseInfo` with 
+    ), """Are you creating an instance of the class `HouseInfo` with
         `data` list as the initialization argument for the constructor?
         """
-    
+
     test_code = (
         my_file.assign_().match(
             {
@@ -522,10 +521,10 @@ def test_sensor_app_house_info_by_date_module2(parse):
     # print("House sensor records for {} = {}".format(test_date.date(), len(recs))) # (NOT TEST IT)
 
     test_file = "sensor_app"
-    
+
     my_file = parse(test_file)
     assert my_file.success, my_file.message
-    
+
     my_file_import = my_file.from_imports(
         "datetime", "datetime")
     assert my_file_import, "Are you importing `datetime` from `datetime` module?"
@@ -534,9 +533,9 @@ def test_sensor_app_house_info_by_date_module2(parse):
         "datetime", "date")
     assert my_file_import, "Are you importing `date` from `datetime` module?"
 
-    
-    # debug_test_case(my_file)    
-    
+
+    # debug_test_case(my_file)
+
     test_code = (
         my_file.assign_().match(
             {
@@ -558,10 +557,10 @@ def test_sensor_app_house_info_by_date_module2(parse):
     )
     assert (
         test_code
-    ),  """Are you creating an instance of the `datetime` class called `test_date` 
+    ),  """Are you creating an instance of the `datetime` class called `test_date`
 
             which takes `"5/9/20"` and `"%m/%d/%y"` as the two arguments?"""
-    
+
     test_code = (
         my_file.assign_().match(
             {
